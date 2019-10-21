@@ -11,7 +11,7 @@ exports.index = (req, res) => {
         Webtoon.findAll({
             where: { isFavorite: true }
         }).then (post => res.send(post))
-    } else if (favorite == "false"){        
+    } else if (favorite == "false"){
         Webtoon.findAll({
             where: { isFavorite: false }
         }).then(post => res.send(post))
@@ -23,7 +23,7 @@ exports.index = (req, res) => {
         }).then(post => res.send(post))
     } else {
         Webtoon.findAll({
-           
+
         }).then(post => res.send(post))
     }
 }
@@ -100,7 +100,7 @@ exports.update = (req, res) => {
     Webtoon.update(
         req.body,
         { where: {createdBy: user_id, id: toon_id}}
-        
+
     ).then(post=> {
         res.send({
             message: "success",

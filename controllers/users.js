@@ -5,15 +5,16 @@ const Webtoon = models.webtoon
 
 
 exports.store = (req, res) => {
-    
+
     const token = jwt.sign({ email: req.body.email}, 'my-secret-key')
     const email = req.body.email
-   
+
     User.findOrCreate({
-        where: {email: req.body.email}, 
+        where: {email: req.body.email},
         defaults: {
             password: req.body.password,
-            name: req.body.name
+            name: req.body.name,
+            image: req.body.image
         }
     }).then( ([user, created]) => {
       console.log(user.get
@@ -36,29 +37,32 @@ exports.store = (req, res) => {
 exports.show = (req, res) => {
     const { user_id } = req.params
     console.log(user_id)
-    
+
     Webtoon.findAll({
        where: { createdBy: user_id },
-      
+
     }).then(posts=>
         res.send(posts)
     ).catch(err => {
-        console.log(err)
+        console.log('apam')
     })
 }
 
-exports.update = (req, res) => {
-    const{ user_id } = req.params
-    User.update(
-        req.body,
-        { where: {id: user_id}}
-        
-    ).then(post=> {
-        res.send({
-            message: "success",
-            post
-        })
-    }).catch(err => {
-        console.log(err)
-    })
-}
+
+
+
+// exports.update = (req, res) => {
+//     const{ user_id } = req.params
+//     User.update(
+//         req.body,
+//         { where: {id: user_id}}
+
+//     ).then(post=> {
+//         res.send({
+//             message: "success",
+//             post
+//         })
+//     }).catch(err => {
+//         console.log(err)
+//     })
+// }

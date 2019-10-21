@@ -12,18 +12,45 @@ const EpisodeController = require('./controllers/episodes')
 const PageController = require('./controllers/pages')
 const BannerController = require('./controllers/banners')
 const { authenticated } = require('./middleware')
+const ProfileController = require('./controllers/profile')
+
+const multer = require('multer')
+const storage = multer.memoryStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+        //console.log(req)
+      cb(null, file.fieldname + '-' + req.params.user_id + '.png')
+    }
+  })
+const upload = multer({ storage: storage })
+app.use(express.static('uploads')); 
 
 app.use(bodyParser.json())
+app.use(express.static('uploads'))
 
 app.group("/api/v1", (router) => {
 
+    
+
+    // router.post('/user/:user_id/upload', upload.single('profile'), (req, res, next) => {
+    //     try {
+    //         res.send(req.file);
+    //         console.log(req.file.path)
+    //     }
+    //     catch(err) {
+    //         res.send(400);
+    //     }
+    // })
+
+    router.put('/user/:user_id/upload', upload.single('profile'), ProfileController.upload)
+    router.get('/user/:user_id/download', ProfileController.download)
+
     router.post('/login', AuthController.login)
     router.get('/banners', BannerController.show )
-    router.put('/user/:user_id/upload', UserController.update)
-    
-    router.post('/register', 
-    UserController.store)
-    
+    router.post('/register',UserController.store)
+
     router.get('/user/:user_id/webtoons', authenticated, UserController.show)
     router.post('/user/:user_id/webtoon', authenticated, WebtoonController.store)
     router.get('/user/:user_id/webtoon/:toon_id/episodes', WebtoonController.show_user)

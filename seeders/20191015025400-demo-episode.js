@@ -6,7 +6,7 @@ module.exports = {
       {
         title: "Ep.1",
         image: "https://www.forbes.com/sites/joanmacdonald.jpg",
-        toonId: 1,
+        tonnId: 1,
         userId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -14,7 +14,7 @@ module.exports = {
       {
         title: "Ep.2",
         image: "https://www.forbes.com/sites/joanmacdonald.jpg",
-        toonId: 1,
+        tonnId: 1,
         userId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -22,7 +22,7 @@ module.exports = {
       {
         title: "Ep.3",
         image: "https://www.forbes.com/sites/joanmacdonald.jpg",
-        toonId: 1,
+        tonnId: 1,
         userId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
